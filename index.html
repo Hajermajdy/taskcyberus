@@ -1,0 +1,284 @@
+<!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+
+<title>Cyberus Stud</title>
+<link rel="stylesheet" href="style.css">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<div id="app" >
+    <div>
+        <!-- start header -->
+        <header class=" container d-flex  justify-content-between mt-2">
+            <p> PHOTO GALARY</p>
+            <button @click="showanatherpage =!showanatherpage" id="add" class=" fs-5 rounded-3" >Add</button>
+        </header>
+        <!-- end header -->
+        
+        <!-- start section1 -->
+        <section class="section1">
+            <!-- public -->
+            <div class="public container">
+                <p class="logo">Public Photos</p>
+                <div class="public" >
+                    <div class="post1" v-for="post in publicposts ">
+                        <div class="username">
+                            <img src="img/wallpaperflare.com_wallpaper.jpg" alt="img" width="20%" height="30" rounded-circle>
+                            <h6>Hager Magdy</h6>
+                        </div>
+                        <div class="positionicon">
+                            <div><img class="animation" src="img/pexels-elijah-o'donnell-3473569.jpg" alt="img" width="100%" height="240"></div>
+                            <a @click="post.noliked = !post.noliked"><img class="iconsheart" src="img/heart.png" alt="img" width="10%" height="25"></a>
+                            <a :class=(post.noliked)?"notactive":"" @click="post.noliked = !post.noliked"><img class="iconsheart1 " src="img/heart1 (2).png" alt="img" width="10%" height="25">
+                            </a>
+                        </div>
+                        <div class="photodetelis">
+                            <p>Photo Name</p>
+                            <p> {{post.numlikes}} likes</p>
+                        </div>
+                        <p class="detel">Lorem ipsum dolor sit amet consectetur adipisicing elit ...
+                        <p>
+                    </div>
+                </div>
+            </div>
+            <!-- public -->
+            <!-- @click="post.noliked = !post.noliked" -->
+            <!-- local -->
+            <div class="local container" >
+                <p class="logo">Local Photos</p>
+                <div class="local">
+                    <div class="post" v-for="post in localposts" >
+                        <div class="username">
+                            <img src="img/wallpaperflare.com_wallpaper.jpg" alt="img" width="20%" height="30" rounded-circle>
+                            <h6>Hager Magdy</h6>
+                            <a @click="deletpost(post)" class="remove"><img class="icons" src="img/garbage.png" alt="img" width="100%" height="25"></a>
+                        </div>
+                        <div class="positionicon">
+                            <img class="animation" src="img/pexels-elijah-o'donnell-3473569.jpg" width="100%" height="240" alt="img">
+                            <a @click="post.noliked = !post.noliked"><img class="iconsheart" src="img/heart.png" alt="img" width="10%" height="25"></a>
+                            <a :class=(post.noliked)?"notactive":"" @click="post.noliked = !post.noliked"><img class="iconsheart1" src="img/heart1 (2).png" alt="img" width="10%" height="25">
+                            </a>
+                        </div>
+                        <div class="photodetelis">
+                            <p>{{post.photoname}}</p>
+                            <p>{{post.numlikes}} likes</p>
+                        </div>
+                        <p class="detel">{{post.PhotoDescription}}<p>
+                    </div>
+            <!-- local -->
+        </section>
+        <!-- end section1 -->
+    </div>
+        <!-- start section2 -->
+        <section class="section2" :class="{active: showanatherpage}">
+            <div class="container">
+                <div class="head">
+                    <p> PHOTO GALARY</p>
+                    <button @click="showanatherpage =!showanatherpage" id="list" class="list fs-5 rounded-3 ">List</button>
+                </div>
+        
+                <p class="logo">Photo info</p>
+                <form>
+                    <label class="id">Name</label><br>
+                    <input v-model="newpost_name" type="text" placeholder="Photo Name" minlength="5" maxlength="30" id="lab1" required><br>
+                    <label class="id">Description</label><br>
+                    <input v-model="newpost_deteles" type="text" placeholder="Photo Description" maxlength="255" id="lab2"
+                        required></input><br>
+                    <input type="file" accept="image/JPG , image/PNG , image/JPEG ">
+                    <div @click="showanatherpage =!showanatherpage">
+                        <input @click="addpost" type="button" id="addpost" class="button" value="Add">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!-- end section2 -->
+    
+</div>
+<script src="vue.js"></script>
+<script>
+    
+    new Vue({
+    el:'#app',
+    data:{
+    showanatherpage:false,
+    newpost_name:'',
+    newpost_deteles: '',
+    publicposts:[
+        // public
+        {
+        numlikes:199,
+        noliked:true,
+        },
+        {
+        numlikes: 19,
+        noliked: true,
+        },
+        {
+        numlikes: 10,
+        noliked: true,
+        },
+        {
+        numlikes: 1995,
+        noliked: true,
+        },
+    ],
+    localposts: [
+    //local
+        {
+        numlikes: 1990,
+        noliked: true,
+        photoname: 'Photo Name',
+        PhotoDescription:'Lorem ipsum dolor sit amet consectetur adipisicing elit ..'
+        },
+        {
+        numlikes: 10,
+        noliked: true,
+        photoname: 'Photo Name',
+        PhotoDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit ...'
+        },
+        {
+        numlikes: 2100,
+        noliked: true,
+        photoname: 'Photo Name',
+        PhotoDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit ...'
+        },
+        {
+        numlikes: 19,
+        noliked: true,
+        photoname: 'Photo Name',
+        PhotoDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit ...'
+        },
+    ]
+    },
+    methods:{
+    deletpost:function(post){
+    this.localposts.splice(this.localposts.indexOf(post),1);
+    },
+    addpost:function(){
+    this.localposts.push({
+    numlikes:0,
+    noliked: true,
+    photoname: this.newpost_name,
+    PhotoDescription:this.newpost_deteles,
+    }),
+    this.newpost_name = '';
+    this.newpost_deteles = '';
+    },
+    addlikedinpuplic:function(post){
+    if(this.publicposts.noliked)
+    this.publicposts.numlikes++;
+    else{
+    this.publicposts.numlikes++;
+    }
+    },
+    addlikedinlocal: function (post) {
+    this.localposts.numlikes++;
+
+    // if (this.localposts.noliked)
+    // this.localposts.numlikes++;
+    // else {
+    // this.localposts.numlikes++;
+    // }
+    },
+    },
+    // watch:{
+    // noliked:function(value){
+    // if(value)
+    // this.numlikes++;
+    // else
+    // this.numlikes--;
+    // }
+    // }
+    });
+
+</script>
+
+
+<!-- const { createApp } = Vue
+
+        createApp({
+            data(){
+                return{
+                    showanatherpage: false,
+                    newpost_name: '',
+                    newpost_deteles: '',
+                    publicposts: [
+                        // public
+                        {
+                            numlikes: 199,
+                            noliked: true,
+                        },
+                        {
+                            numlikes: 19,
+                            noliked: true,
+                        },
+                        {
+                            numlikes: 10,
+                            noliked: true,
+                        },
+                        {
+                            numlikes: 1995,
+                            noliked: true,
+                        },
+                    ],
+                    localposts: [
+                        //local
+                        {
+                            numlikes: 1990,
+                            noliked: true,
+                            photoname: 'Photo Name',
+                            PhotoDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit ..'
+                        },
+                        {
+                            numlikes: 10,
+                            noliked: true,
+                            photoname: 'Photo Name',
+                            PhotoDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit ...'
+                        },
+                        {
+                            numlikes: 2100,
+                            noliked: true,
+                            photoname: 'Photo Name',
+                            PhotoDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit ...'
+                        },
+                        {
+                            numlikes: 19,
+                            noliked: true,
+                            photoname: 'Photo Name',
+                            PhotoDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit ...'
+                        },
+                    ],
+                }
+            },
+            methods: {
+                deletpost: function (post) {
+                    this.localposts.splice(this.localposts.indexOf(post), 1);
+                },
+                addpost: function () {
+                    this.localposts.push({
+                        numlikes: 0,
+                        noliked: true,
+                        photoname: this.newpost_name,
+                        PhotoDescription: this.newpost_deteles,
+                    }),
+                        this.newpost_name = '';
+                    this.newpost_deteles = '';
+                },
+                addlikedinpuplic: function (post) {
+                    if (this.publicposts.noliked)
+                        this.publicposts.numlikes++;
+                    else {
+                        this.publicposts.numlikes++;
+                    }
+                },
+                addlikedinlocal: function (post) {
+                    this.localposts.numlikes++;
+
+                    // if (this.localposts.noliked)
+                    //     this.localposts.numlikes++;
+                    // else {
+                    //     this.localposts.numlikes++;
+                    // }
+                },
+            },
+        }).mount('#app') -->
+
